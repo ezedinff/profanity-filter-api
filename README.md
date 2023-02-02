@@ -6,10 +6,13 @@ To run the API, you will need to have Node.js installed. Once you have Node.js i
 ```bash
 git clone https://github.com/ezedinff/profanity-filter-api.git
 cd profanity-filter-api
-npm install
+yarn install
 
 # run docker-compose
 docker-compose up
+
+# run the API
+yarn start
 ```
 
 ## Endpoint
@@ -29,14 +32,7 @@ curl -X POST \
 ```
 
 ## Response
-The response will be a JSON object with the following structure:
-
-```json
-{
-    "message": "Profanity removed from audio file",
-    "path": "/path/to/muted_audio.wav"
-}
-```
+The response will be a file with the same name as the audio file, but with the extension .mp3. The file will contain the audio with the profanity muted.
 
 ## Error Responses
 If there is an error processing the audio file, the response will be a JSON object with the following structure:
