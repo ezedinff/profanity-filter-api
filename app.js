@@ -1,6 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 const { exec } = require("child_process");
+const path = require("path");
 
 const app = express();
 
@@ -25,10 +26,9 @@ const upload = multer({ storage: storage });
 
 app.post("/mute-profanity", upload.single("audioFile"), (req, res) => {
   const inputFile = req.file.path;
-  const outputFile = `${inputFile}.muted.mp3`;
-
-  console.log(inputFile, outputFile);
-  const command = `monkeyplug -i ${inputFile} -o ${outputFile}`;
+  const outputFile = `${inputFile}.muted`;
+  const command = `./run.sh ${inputFile} ${outputFile}`;
+  
   if (inputFile === undefined) {
     return res.status(400).send({ error: "No file provided" });
   }
@@ -41,8 +41,8 @@ app.post("/mute-profanity", upload.single("audioFile"), (req, res) => {
     if (stderr) {
       return res.status(500).send({ error: stderr });
     }
-
-    res.sendFile(outputFile, (sendFileError) => {
+    const output = path.join(__dirname, outputFile) + ".mp3";
+    res.sendFile(output, (sendFileError) => {
       if (sendFileError) {
         return res.status(500).send({ error: sendFileError.message });
       }

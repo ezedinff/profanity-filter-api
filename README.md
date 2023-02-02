@@ -1,4 +1,17 @@
 # Mute Profanity API
+
+## How to Run
+To run the API, you will need to have Node.js installed. Once you have Node.js installed, you can run the following commands to start the API:
+
+```bash
+git clone https://github.com/ezedinff/profanity-filter-api.git
+cd profanity-filter-api
+npm install
+
+# run docker-compose
+docker-compose up
+```
+
 ## Endpoint
 The API has a single endpoint at /mute-profanity which accepts multipart form data.
 
